@@ -50,15 +50,28 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           ),
           Card(
             child: Column(children: <Widget>[
-              Align(
+               SizedBox(height: 3,),
+              Row(children: <Widget>[
+                Align(
                   alignment: Alignment.topLeft,
-                  child: Text("Booking ID "+
+                  child: Text("Booking ID: ",
+                    style: TextStyle(
+                        color: Colors.white,
+                        //fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  )),
+                  //Spacer(),
+                  Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
                     widget.book.bookid,
                     style: TextStyle(
                         color: Colors.white,
                         //fontWeight: FontWeight.bold,
                         fontSize: 16),
                   )),
+              ],),
+              
                    Align(
                   alignment: Alignment.topLeft,
                   child: Text("Paid on " + widget.book.date,
@@ -339,7 +352,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
   _loadBookDetails() async {
     downpayment = 0;
     unitSelected = 0;
-
     String urlLoadBookDetails = server + "/php/load_bookinghistory.php";
     await http.post(urlLoadBookDetails, body: {
       "bookid": widget.book.bookid,

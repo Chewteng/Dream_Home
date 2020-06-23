@@ -1290,9 +1290,8 @@ class _FavScreenState extends State<FavScreen> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }
     var now = new DateTime.now();
-    var formatter = new DateFormat('ddMMyyyyhhmmss-');
-    String bookid = widget.user.email +
-        "-" +
+    var formatter = new DateFormat('ddMMyyyyhms');
+    String bookid = 
         formatter.format(now) +
         randomAlphaNumeric(10);
     print(bookid);

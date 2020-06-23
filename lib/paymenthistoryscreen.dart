@@ -61,48 +61,41 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                       itemCount: _paymentdata == null ? 0 : _paymentdata.length,
                       itemBuilder: (context, index) {
                         return Padding(
-                            padding: EdgeInsets.fromLTRB(10, 1, 10, 1),
+                            padding: EdgeInsets.fromLTRB(10, 3, 10, 1),
                             child: InkWell(
                                 onTap: () => loadBookDetails(index),
                                 child: Card(
+                                   shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0))),
                                   elevation: 10,
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
+                                      SizedBox(width: 5,),
                                       Text(
                                         (index + 1).toString() + ".",
                                         style: TextStyle(color: Colors.white),
                                       ),
-                                      SizedBox(width: 16),
+                                      SizedBox(width: 16),                                      
                                       Expanded(
                                           flex: 10,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
+                                              SizedBox(height: 2,),
                                               Text(
-                                                "Booking ID ",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
+                                                "Booking ID: " +
                                                 _paymentdata[index]['bookid'],
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
                                               SizedBox(height: 5),
                                               Text(
-                                                "Receipt ID ",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                _paymentdata[index]['billid'],
+                                                "Receipt ID: " +
+                                                 _paymentdata[index]['billid'],
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
