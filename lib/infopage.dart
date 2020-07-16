@@ -6,9 +6,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 
 class InfoPage extends StatefulWidget {
   final House house;
+
   const InfoPage({Key key, this.house}) : super(key: key);
 
   @override
@@ -64,159 +66,144 @@ class _InfoPageState extends State<InfoPage> {
             height: 15,
           ),
           Card(
-            child: Table(defaultColumnWidth: FlexColumnWidth(1.0),
-                //columnWidths: {
-                // 0: FlexColumnWidth(8),
-                //1: FlexColumnWidth(6.5),
-                //},
-                children: [
-                  TableRow(children: [
-                    TableCell(
-                        child: Column(mainAxisSize: MainAxisSize.min,
-
-                            //mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                          Container(
-                              margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              alignment: Alignment.topLeft,
-                              //height: 150,
-                              child: Text(
-                                  "RM " +
-                                      (formatter.format(
-                                          int.parse(widget.house.price))),
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                        ])),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                        child: Column(mainAxisSize: MainAxisSize.min,
-                            //mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                          Container(
-                              alignment: Alignment.topLeft,
-                              //height: 150,
-                              child: Text(widget.house.name,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                        ])),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                          Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              alignment: Alignment.topLeft,
-                              //height: 150,
-                              child: Text(widget.house.address,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      //fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                        ])),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                        child: Column(mainAxisSize: MainAxisSize.min,
-                            //mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                          Container(
-                              alignment: Alignment.topLeft,
-                              //height: 150,
-                              child: Text(widget.house.type,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                        ])),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                        child: Column(mainAxisSize: MainAxisSize.min,
-                            //mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                          Container(
-                              margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              alignment: Alignment.topLeft,
-                              //height: 150,
-                              child: Text("Built-up Size: " + widget.house.area,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                        ])),
-                  ]),
-                  TableRow(children: [
-                    TableCell(
-                        child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                          Icon(
-                            MdiIcons.bedDoubleOutline,
-                            // size: 40,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                              alignment: Alignment.center,
-                              //height: 150,
-                              child: Text(widget.house.room,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Icon(
-                            MdiIcons.shower,
-                            // size: 40,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                              alignment: Alignment.center,
-                              //height: 150,
-                              child: Text(widget.house.broom,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Icon(
-                            MdiIcons.car,
-                            // size: 40,
-                            color: Colors.white,
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Container(
-                              alignment: Alignment.center,
-                              //height: 150,
-                              child: Text(widget.house.cpark,
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white))),
-                          SizedBox(
-                            height: 10,
-                          ),
-                        ])),
-                  ]),
-                ]),
+            child: Table(defaultColumnWidth: FlexColumnWidth(1.0), children: [
+              TableRow(children: [
+                TableCell(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                          alignment: Alignment.topLeft,
+                          //height: 150,
+                          child: Text(
+                              "RM " +
+                                  (formatter
+                                      .format(int.parse(widget.house.price))),
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                    ])),
+              ]),
+              TableRow(children: [
+                TableCell(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                      Container(
+                          alignment: Alignment.topLeft,
+                          child: Text(widget.house.name,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                    ])),
+              ]),
+              TableRow(children: [
+                TableCell(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          alignment: Alignment.topLeft,
+                          child: Text(widget.house.address,
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.white))),
+                    ])),
+              ]),
+              TableRow(children: [
+                TableCell(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                      Container(
+                          alignment: Alignment.topLeft,
+                          child: Text(widget.house.type,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                    ])),
+              ]),
+              TableRow(children: [
+                TableCell(
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                      Container(
+                          margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                          alignment: Alignment.topLeft,
+                          child: Text("Built-up Size: " + widget.house.area,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white))),
+                    ])),
+              ]),
+              TableRow(children: [
+                TableCell(
+                    child:
+                        Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                  Icon(
+                    MdiIcons.bedDoubleOutline,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      child: Text(widget.house.room,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white))),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Icon(
+                    MdiIcons.shower,
+                    // size: 40,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      //height: 150,
+                      child: Text(widget.house.broom,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white))),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Icon(
+                    MdiIcons.car,
+                    // size: 40,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                      alignment: Alignment.center,
+                      //height: 150,
+                      child: Text(widget.house.cpark,
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white))),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ])),
+              ]),
+            ]),
           ),
           Card(
               child: ListTile(
@@ -229,7 +216,7 @@ class _InfoPageState extends State<InfoPage> {
                       fontSize: 16,
                     ),
                   ),
-                  trailing: Icon(Icons.keyboard_arrow_right),
+                  trailing: Icon(Icons.arrow_forward),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -240,117 +227,6 @@ class _InfoPageState extends State<InfoPage> {
               child: Column(children: <Widget>[
             Align(
               alignment: Alignment.centerLeft,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text("For more details:",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w900)),
-            SizedBox(
-              height: 5,
-            ),
-            Table(defaultColumnWidth: FlexColumnWidth(1.0), columnWidths: {
-              0: FlexColumnWidth(3),
-              1: FlexColumnWidth(6.5),
-            }, children: [
-              TableRow(children: [
-                TableCell(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 3,
-                      ),
-                      Icon(
-                        Icons.link,
-                        // size: 40,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                          alignment: Alignment.center,
-
-                          // height: 40,
-                          child: Text("URL: ",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white))),
-                    ],
-                  ),
-                ),
-                TableCell(
-                    child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () => _launchInUrl("https://${widget.house.url}?"),
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        //height: 40,
-                        child: Text(widget.house.url,
-                            style: TextStyle(
-                                //fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.white)),
-                      ),
-                    )
-                  ],
-                )),
-              ]),
-              TableRow(children: [
-                TableCell(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      SizedBox(
-                        width: 3,
-                      ),
-                      Icon(
-                        Icons.phone,
-                        // size: 40,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Container(
-                          alignment: Alignment.center,
-                          //height: 20,
-                          child: Text("Phone: ",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white))),
-                    ],
-                  ),
-                ),
-                TableCell(
-                  child:
-                      Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                    GestureDetector(
-                      onTap: () => _callPhone(context),
-                      child: Container(
-                        alignment: Alignment.centerLeft,
-                        //height: 20,
-                        child: Text(widget.house.contact,
-                            style: TextStyle(
-                                //fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.white)),
-                      ),
-                    ),
-                  ]),
-                )
-              ]),
-            ]),
-            SizedBox(
-              height: 15,
             ),
             _googleMap(context),
             SizedBox(
@@ -374,7 +250,6 @@ class _InfoPageState extends State<InfoPage> {
                           ),
                           Icon(
                             Icons.note,
-                            // size: 40,
                             color: Colors.white,
                           ),
                           SizedBox(
@@ -382,7 +257,6 @@ class _InfoPageState extends State<InfoPage> {
                           ),
                           Container(
                               alignment: Alignment.center,
-                              //height: 150,
                               child: Text("Description: ",
                                   style: TextStyle(
                                       fontSize: 16,
@@ -394,24 +268,104 @@ class _InfoPageState extends State<InfoPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           Container(
+                              child: Align(
                             alignment: Alignment.centerLeft,
-                            //height: 150,
                             child: Text(widget.house.description,
                                 style: TextStyle(
-                                    //fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.white)),
-                          ),
+                                    fontSize: 16, color: Colors.white)),
+                          )),
                         ],
                       ),
                     ),
                   ]),
                 ])),
             SizedBox(
-              height: 10,
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () => _launchInUrl("https://${widget.house.url}?"),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: Icon(
+                      MdiIcons.link,
+                      size: 25,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => _callPhone(context),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: Icon(
+                      MdiIcons.phone,
+                      size: 25,
+                      color: Colors.blueAccent,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () => _whatsupPhone(context),
+                  child: Container(
+                    margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                    child: Icon(
+                      MdiIcons.whatsapp,
+                      size: 25,
+                      color: Colors.greenAccent,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                )
+              ],
             ),
           ]))
         ]))));
+  }
+
+  _whatsupPhone(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        title: new Text(
+          'Contact Us via WhatsApp' + '?',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        actions: <Widget>[
+          MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                FlutterOpenWhatsapp.sendSingleMessage(
+                    "+60" + widget.house.contact,
+                    "Hi, I found your property for sale and I'm interested to find out more.");
+              },
+              child: Text(
+                "Yes",
+                style: TextStyle(
+                  color: Colors.blue[400],
+                ),
+              )),
+          MaterialButton(
+              onPressed: () {
+                Navigator.of(context).pop(false);
+              },
+              child: Text(
+                "No",
+                style: TextStyle(
+                  color: Colors.blue[400],
+                ),
+              )),
+        ],
+      ),
+    );
   }
 
   _callPhone(BuildContext context) {

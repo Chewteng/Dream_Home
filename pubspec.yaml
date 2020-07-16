@@ -54,6 +54,9 @@ dev_dependencies:
   geolocator: ^5.3.1
   webview_flutter: ^0.3.14+1
   random_string: ^1.1.0
+  place_picker: ^0.9.9
+  flutter_open_whatsapp: ^0.1.2
+  sms: ^0.2.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

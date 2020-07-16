@@ -22,6 +22,9 @@ class _Calculator extends State<Calculator> {
   double paymentRate = 0.00;
   double monthlyResult = 0.00;
   double totalResult = 0.00;
+  final focus0 = FocusNode();
+  final focus1 = FocusNode();
+  final focus2 = FocusNode();
 
   @override
   void initState() {
@@ -29,8 +32,7 @@ class _Calculator extends State<Calculator> {
     dpRate = rates[3];
   }
 
-  TextEditingController principalEditingController =
-      new TextEditingController();
+  TextEditingController principalEditingController = new TextEditingController();
   TextEditingController paymentEditingController = new TextEditingController();
   TextEditingController interestEditingController = new TextEditingController();
   TextEditingController yearsEditingController = new TextEditingController();
@@ -112,19 +114,20 @@ class _Calculator extends State<Calculator> {
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
                       child: TextFormField(
                         style: TextStyle(
-                      color: Colors.white,
-                    ),
+                          color: Colors.white,
+                        ),
                         keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.next,
+                        onFieldSubmitted: (v) {
+                          FocusScope.of(context).requestFocus(focus0);
+                        },
                         onChanged: (value) {
                           setState(() {
                             principalRate =
                                 value.length > 0 ? double.parse(value) : 0;
                             double payment = (principalRate * dpRate / 100);
-                            //double payment = principalRate - dp;
                             paymentEditingController.text =
                                 payment.toStringAsFixed(2);
-                            // paymentEditingController.text =
-                            //  payment.toStringAsFixed(2);
                           });
                         },
                         controller: principalEditingController,
@@ -178,6 +181,11 @@ class _Calculator extends State<Calculator> {
                         color: Colors.white,
                       ),
                       keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      focusNode: focus0,
+                      onFieldSubmitted: (v) {
+                        FocusScope.of(context).requestFocus(focus1);
+                      },
                       controller: interestEditingController,
                       decoration: InputDecoration(
                           hintText: 'In percentage e.g 10',
@@ -198,9 +206,14 @@ class _Calculator extends State<Calculator> {
                   Padding(
                     child: TextFormField(
                       style: TextStyle(
-                      color: Colors.white,
-                    ),
+                        color: Colors.white,
+                      ),
                       keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      focusNode: focus1,
+                      onFieldSubmitted: (v) {
+                        FocusScope.of(context).requestFocus(focus2);
+                      },
                       controller: yearsEditingController,
                       decoration: InputDecoration(
                           hintText: 'e.g 2',
@@ -253,11 +266,11 @@ class _Calculator extends State<Calculator> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                      padding: EdgeInsets.fromLTRB(100, 0, 50, 0),
+                      padding: EdgeInsets.fromLTRB(70, 0, 50, 0),
                       child: Table(
                           defaultColumnWidth: FlexColumnWidth(1.0),
                           columnWidths: {
-                            0: FlexColumnWidth(4),
+                            0: FlexColumnWidth(5),
                             1: FlexColumnWidth(5),
                           },
                           children: [
@@ -266,18 +279,18 @@ class _Calculator extends State<Calculator> {
                                   child: Container(
                                 alignment: Alignment.centerLeft,
                                 height: 30,
-                                child: Text(
-                                    '${monthlyResult.toStringAsFixed(2)}',
-                                    style: TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
+                                child:
+                                    Text('${monthlyResult.toStringAsFixed(2)}',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.white)),
                               )),
                               TableCell(
                                   child: Container(
                                       alignment: Alignment.centerLeft,
                                       height: 30,
-                                      child: Text(" Monthly",
+                                      child: Text("Monthly",
                                           style: TextStyle(
                                               fontSize: 18.0,
                                               color: Colors.white)))),
@@ -287,8 +300,7 @@ class _Calculator extends State<Calculator> {
                                   child: Container(
                                 alignment: Alignment.centerLeft,
                                 height: 30,
-                                child: Text(
-                                    ' ${totalResult.toStringAsFixed(2)}',
+                                child: Text('${totalResult.toStringAsFixed(2)}',
                                     style: TextStyle(
                                         fontSize: 18.0, color: Colors.white)),
                               )),

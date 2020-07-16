@@ -35,8 +35,6 @@ class _FavScreenState extends State<FavScreen> {
   @override
   void initState() {
     super.initState();
-    //_getLocation();
-    //_getCurrentLocation();
     _loadFav();
   }
 
@@ -67,20 +65,15 @@ class _FavScreenState extends State<FavScreen> {
                   child: Container(
                       child: Center(
                   child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    //crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Container(
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(10, 160, 10, 10),
                           child: Image.asset(
                             'assets/images/saved.jpg',
-                            // height: 150,
-                            //width: 150,
                           ),
                         ),
                       ),
-                      //CircularProgressIndicator(),
                       SizedBox(
                         height: 10,
                       ),
@@ -90,27 +83,18 @@ class _FavScreenState extends State<FavScreen> {
                             fontWeight: FontWeight.bold,
                             fontSize: 22,
                             color: Colors.white),
-                        //textAlign: TextAlign.justify
                       ),
                       SizedBox(
                         height: 15,
                       ),
                       Text(
                         "Save a property by tapping on the love",
-                        style: TextStyle(
-                            //fontWeight: FontWeight.bold
-                            fontSize: 16,
-                            color: Colors.white),
-                        // textAlign: TextAlign.justify
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                       SizedBox(height: 2),
                       Text(
                         "button of any listing property.",
-                        style: TextStyle(
-                            color: Colors.white,
-                            // fontWeight: FontWeight.bold
-                            fontSize: 16),
-                        //textAlign: TextAlign.justify
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],
                   ),
@@ -121,10 +105,6 @@ class _FavScreenState extends State<FavScreen> {
                       itemBuilder: (context, index) {
                         if (index == favData.length + 1) {
                           return Container(
-                              //height: screenHeight / 4,
-                              //   width: screenWidth / 2,
-                              //// width: 300,
-                              //height: 250,
                               color: Colors.grey,
                               child: InkWell(
                                 onLongPress: () => {print("Delete")},
@@ -139,7 +119,6 @@ class _FavScreenState extends State<FavScreen> {
                                   Card(
                                       color: Colors.grey,
                                       child: Padding(
-                                        //splashColor: Colors.blue.withAlpha(30),
                                         padding: EdgeInsets.all(5),
                                         child: SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
@@ -159,9 +138,7 @@ class _FavScreenState extends State<FavScreen> {
                                                               400], // color of tick Mark
                                                           activeColor:
                                                               Colors.blue[400],
-                                                          //checkColor: Colors.yellowAccent,  // color of tick Mark
-                                                          //activeColor: Colors.red,
-                                                          // focusColor: Colors.black,
+
                                                           value:
                                                               _isabellaService,
                                                           onChanged:
@@ -513,8 +490,6 @@ class _FavScreenState extends State<FavScreen> {
                                                         ),
                                                       ],
                                                     ),
-                                                    //leading: Icon(MdiIcons.calculatorVariant),
-                                                    //title: Text("Home"),
                                                   ],
                                                 ),
                                               ]),
@@ -525,7 +500,6 @@ class _FavScreenState extends State<FavScreen> {
                         }
                         if (index == favData.length) {
                           return Container(
-                              //height: screenHeight / 3,
                               child: Card(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
@@ -585,7 +559,6 @@ class _FavScreenState extends State<FavScreen> {
 
                         if (index == favData.length + 2) {
                           return Container(
-                              //height: screenHeight / 3,
                               child: Card(
                             elevation: 5,
                             child: Column(
@@ -616,7 +589,8 @@ class _FavScreenState extends State<FavScreen> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   height: 20,
-                                                  child: Text("Down Payment RM200/unit ",
+                                                  child: Text(
+                                                      "Down Payment RM200/unit ",
                                                       style: TextStyle(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -629,8 +603,9 @@ class _FavScreenState extends State<FavScreen> {
                                                 alignment: Alignment.centerLeft,
                                                 height: 20,
                                                 child: Text(
-                                                  "RM " +
-                                                    downpayment.toString() ??
+                                                    "RM " +
+                                                            downpayment
+                                                                .toString() ??
                                                         "0",
                                                     style: TextStyle(
                                                         fontWeight:
@@ -646,7 +621,8 @@ class _FavScreenState extends State<FavScreen> {
                                                   alignment:
                                                       Alignment.centerLeft,
                                                   height: 20,
-                                                  child: Text("Total Selected (Unit) ",
+                                                  child: Text(
+                                                      "Total Selected (Unit) ",
                                                       style: TextStyle(
                                                           fontSize: 16,
                                                           fontWeight:
@@ -774,15 +750,12 @@ class _FavScreenState extends State<FavScreen> {
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(20.0)),
-                                    // minWidth: 300,
-                                    //height: 50,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Icon(
                                           MdiIcons.bankTransfer,
-                                          //Icons.calendar_today,
                                           color: Colors.black,
                                         ),
                                         SizedBox(width: 10),
@@ -852,10 +825,7 @@ class _FavScreenState extends State<FavScreen> {
                                       ))),
                                   Container(
                                       width: screenWidth / 1.8,
-                                      //color: Colors.blue,
                                       child: Row(
-                                        //crossAxisAlignment: CrossAxisAlignment.center,
-                                        //   mainAxisAlignment: MainAxisAlignment.center,
                                         children: <Widget>[
                                           Flexible(
                                             child: Column(
@@ -869,9 +839,6 @@ class _FavScreenState extends State<FavScreen> {
                                                   ),
                                                   maxLines: 2,
                                                 ),
-                                                //SizedBox(
-                                                //   width: 25,
-                                                // ),
                                                 Text(
                                                   favData[index]['name'],
                                                   style: TextStyle(
@@ -906,9 +873,6 @@ class _FavScreenState extends State<FavScreen> {
                                                         ),
                                                       ),
                                                     ]),
-
-                                                //Text("Your Quantity: " +
-                                                //     favData[index]['hquantity']),
                                                 Container(
                                                     height: 20,
                                                     child: Row(
@@ -947,7 +911,6 @@ class _FavScreenState extends State<FavScreen> {
                                                         ),
                                                       ],
                                                     )),
-                                                //SizedBox(width:10),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -964,7 +927,7 @@ class _FavScreenState extends State<FavScreen> {
                                                                 FontWeight.bold,
                                                             color:
                                                                 Colors.white)),
-                                                    //Spacer(),
+                                                    Spacer(),
                                                     FlatButton(
                                                       onPressed: () =>
                                                           {_deleteFav(index)},
@@ -991,20 +954,19 @@ class _FavScreenState extends State<FavScreen> {
     unitSelected = 0;
     amountpayable = 0.0;
     servicecharge = 0.0;
-    // ProgressDialog pr = new ProgressDialog(context,
-    //    type: ProgressDialogType.Normal, isDismissible: false);
-    //pr.style(message: "Updating fav list...");
-    //pr.show();
+
     String urlLoadFav = "https://yitengsze.com/cteng/php/load_fav.php";
     http.post(urlLoadFav, body: {
       "email": widget.user.email,
     }).then((res) {
       print(res.body);
-      //pr.dismiss();
+
       NumberFormat format = NumberFormat("#,###");
 
       if (res.body == "Favourite List Empty") {
         //Navigator.of(context).pop(false);
+        Toast.show("Favourite List Empty", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         widget.user.quantity = "0";
         Navigator.push(
             context,
@@ -1018,27 +980,18 @@ class _FavScreenState extends State<FavScreen> {
         var extractdata = json.decode(res.body);
         favData = extractdata["favourite"];
         for (int i = 0; i < favData.length; i++) {
-          // _weight = int.parse(favData[i]['room']) *
-          //   int.parse(favData[i]['hquantity']) +
-          // _weight;
-          //_totalprice = int.parse(format.format(int.parse(favData[i]['yourprice'])) + format.format(_totalprice));
           _totalprice = double.parse(favData[i]['yourprice']) + _totalprice;
           unitSelected = int.parse(favData[i]['hquantity']) + unitSelected;
         }
 
-        //_weight = _weight/1000;
-        //amountpayable = unitSelected;
         _totalprice = _totalprice;
-        //print(_weight);
         print(format.format(_totalprice));
       });
       Toast.show("Updated fav list successfully", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
     }).catchError((err) {
       print(err);
-      // pr.dismiss();
     });
-    //pr.dismiss();
   }
 
   _updateFav(int index, String op) {
@@ -1088,16 +1041,11 @@ class _FavScreenState extends State<FavScreen> {
         title: new Text(
           'Remove from favourite list?',
           style: TextStyle(
-            fontWeight: FontWeight.bold,
+            //fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
         actions: <Widget>[
-          Icon(
-            MdiIcons.menuRight,
-            size: 40,
-            color: Colors.white70,
-          ),
           MaterialButton(
               onPressed: () {
                 Navigator.of(context).pop(false);
@@ -1141,8 +1089,6 @@ class _FavScreenState extends State<FavScreen> {
   }
 
   void _onIsabellaService(bool newValue) => setState(() {
-        //_getCurrentLocation();
-        //_getLocation();
         _isabellaService = newValue;
         if (_isabellaService) {
           _jeffreryService = false;
@@ -1224,7 +1170,8 @@ class _FavScreenState extends State<FavScreen> {
       }
       //amountpayable = servicecharge;
       if (_storeCredit) {
-        amountpayable = downpayment + servicecharge - double.parse(widget.user.credit);
+        amountpayable =
+            downpayment + servicecharge - double.parse(widget.user.credit);
       } else {
         amountpayable = downpayment + servicecharge;
       }
@@ -1233,7 +1180,7 @@ class _FavScreenState extends State<FavScreen> {
     });
   }
 
-   makePayment() {
+  void makePayment() {
     showDialog(
       context: context,
       builder: (context) => new AlertDialog(
@@ -1272,7 +1219,15 @@ class _FavScreenState extends State<FavScreen> {
     );
   }
 
-  Future<void> _makePayment() async  {
+  Future<void> _makePayment() async {
+    if (amountpayable < 0) {
+      double newamount = amountpayable * -1;
+      print(amountpayable);
+      print(newamount);
+      await _payusingstorecredit(newamount);
+      _loadFav();
+      return;
+    }
     if (_lunaService) {
       print("Luna Service");
       Toast.show("Luna Service", context,
@@ -1291,9 +1246,7 @@ class _FavScreenState extends State<FavScreen> {
     }
     var now = new DateTime.now();
     var formatter = new DateFormat('ddMMyyyyhms');
-    String bookid = 
-        formatter.format(now) +
-        randomAlphaNumeric(10);
+    String bookid = formatter.format(now) + randomAlphaNumeric(10);
     print(bookid);
     await Navigator.push(
         context,
@@ -1304,6 +1257,40 @@ class _FavScreenState extends State<FavScreen> {
                   bookid: bookid,
                 )));
     _loadFav();
+  }
+
+  String generateBookingID() {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('ddMMyyyyhms');
+    String bookid = formatter.format(now) + randomAlphaNumeric(10);
+    return bookid;
+  }
+
+  Future<void> _payusingstorecredit(double newamount) async {
+    //insert carthistory
+    //remove cart content
+    //update product quantity
+    //update credit in user
+    String updateamount = newamount.toStringAsFixed(2);
+    Toast.show("Updating Favourite List", context,
+        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+    String urlPayment = "https://yitengsze.com/cteng/php/paymentwallet.php";
+    await http.post(urlPayment, body: {
+      "userid": widget.user.email,
+      "amount": (downpayment + servicecharge).toStringAsFixed(2),
+      "bookid": generateBookingID(),
+      "newcr": updateamount
+    }).then((res) {
+      print(res.body);
+      if(res.body == "Success pay with DreamHome wallet"){
+        print("Success.");
+        setState(() {
+          widget.user.credit = updateamount;
+        });
+      }
+    }).catchError((err) {
+      print(err);
+    });
   }
 
   void deleteAll() {
@@ -1331,7 +1318,7 @@ class _FavScreenState extends State<FavScreen> {
                   if (res.body == "success") {
                     _loadFav();
                   } else {
-                    Toast.show("Failed", context,
+                    Toast.show("Failed to delete house", context,
                         duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
                   }
                 }).catchError((err) {

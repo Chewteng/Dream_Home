@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
-//import 'package:progress_dialog/progress_dialog.dart';
 import 'package:image_cropper/image_cropper.dart';
 
 class NewHouse extends StatefulWidget {
@@ -29,8 +28,6 @@ class _NewHouseState extends State<NewHouse> {
   TextEditingController logEditingController = new TextEditingController();
   TextEditingController urlEditingController = new TextEditingController();
   TextEditingController contactEditingController = new TextEditingController();
-  TextEditingController inameEditingController = new TextEditingController();
-  TextEditingController bookEditingController = new TextEditingController();
   double screenHeight, screenWidth;
   File _image;
   var _tapPosition;
@@ -50,8 +47,6 @@ class _NewHouseState extends State<NewHouse> {
   final focus10 = FocusNode();
   final focus11 = FocusNode();
   final focus12 = FocusNode();
-  final focus13 = FocusNode();
-  final focus14 = FocusNode();
   String selectedType;
   List<String> listType = [
     "Condominium",
@@ -79,7 +74,7 @@ class _NewHouseState extends State<NewHouse> {
                 GestureDetector(
                     onTap: () => {_choose()},
                     child: Container(
-                      height: screenHeight / 3,
+                      height: screenHeight / 4.0,
                       width: screenWidth / 1.8,
                       decoration: BoxDecoration(
                         image: DecorationImage(
@@ -567,7 +562,7 @@ class _NewHouseState extends State<NewHouse> {
                                           ),
                                         ),
                                       ]),
-                                       TableRow(children: [
+                                      TableRow(children: [
                                         TableCell(
                                           child: Container(
                                               alignment: Alignment.centerLeft,
@@ -590,7 +585,7 @@ class _NewHouseState extends State<NewHouse> {
                                                 controller:
                                                     descEditingController,
                                                 keyboardType:
-                                                    TextInputType.text,
+                                                    TextInputType.multiline,
                                                 textInputAction:
                                                     TextInputAction.next,
                                                 focusNode: focus7,
@@ -781,98 +776,6 @@ class _NewHouseState extends State<NewHouse> {
                                                 onFieldSubmitted: (v) {
                                                   FocusScope.of(context)
                                                       .requestFocus(focus12);
-                                                },
-                                                decoration: new InputDecoration(
-                                                  fillColor: Colors.white,
-                                                  border:
-                                                      new OutlineInputBorder(
-                                                    borderRadius:
-                                                        new BorderRadius
-                                                            .circular(5.0),
-                                                    borderSide:
-                                                        new BorderSide(),
-                                                  ),
-                                                  //fillColor: Colors.green
-                                                )),
-                                          ),
-                                        ),
-                                      ]),
-                                      TableRow(children: [
-                                        TableCell(
-                                          child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              height: 30,
-                                              child: Text("IamgeID (in jpg)",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white))),
-                                        ),
-                                        TableCell(
-                                          child: Container(
-                                            margin:
-                                                EdgeInsets.fromLTRB(5, 1, 5, 1),
-                                            height: 30,
-                                            child: TextFormField(
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                                controller:
-                                                    inameEditingController,
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                focusNode: focus12,
-                                                onFieldSubmitted: (v) {
-                                                  FocusScope.of(context)
-                                                      .requestFocus(focus13);
-                                                },
-                                                decoration: new InputDecoration(
-                                                  fillColor: Colors.white,
-                                                  border:
-                                                      new OutlineInputBorder(
-                                                    borderRadius:
-                                                        new BorderRadius
-                                                            .circular(5.0),
-                                                    borderSide:
-                                                        new BorderSide(),
-                                                  ),
-                                                  //fillColor: Colors.green
-                                                )),
-                                          ),
-                                        ),
-                                      ]),
-                                       TableRow(children: [
-                                        TableCell(
-                                          child: Container(
-                                              alignment: Alignment.centerLeft,
-                                              height: 30,
-                                              child: Text("Book Quantity",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white))),
-                                        ),
-                                        TableCell(
-                                          child: Container(
-                                            margin:
-                                                EdgeInsets.fromLTRB(5, 1, 5, 1),
-                                            height: 30,
-                                            child: TextFormField(
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                                controller:
-                                                    bookEditingController,
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                textInputAction:
-                                                    TextInputAction.next,
-                                                focusNode: focus13,
-                                                onFieldSubmitted: (v) {
-                                                  FocusScope.of(context)
-                                                      .requestFocus(focus14);
                                                 },
                                                 decoration: new InputDecoration(
                                                   fillColor: Colors.white,
@@ -1094,16 +997,6 @@ class _NewHouseState extends State<NewHouse> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
-    if (inameEditingController.text.length < 1) {
-      Toast.show("Please insert house imagename in jpg", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
-    if (bookEditingController.text.length < 1) {
-      Toast.show("Please insert customer booking appointment quantity", context,
-          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-      return;
-    }
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -1151,10 +1044,6 @@ class _NewHouseState extends State<NewHouse> {
   }
 
   insertHouse() {
-    // ProgressDialog pr = new ProgressDialog(context,
-    //   type: ProgressDialogType.Normal, isDismissible: false);
-    //pr.style(message: "Inserting new house details...");
-    // pr.show();
     if (_image == null) {
       Toast.show("No image is pictured.", context,
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -1177,23 +1066,22 @@ class _NewHouseState extends State<NewHouse> {
         "longitude": logEditingController.text,
         "url": urlEditingController.text,
         "contact": contactEditingController.text,
-        "imagename": inameEditingController.text,
-        "book": bookEditingController.text,
         "encoded_string": base64Image,
       }).then((res) {
         print(res.body);
-        //pr.dismiss();
+
         if (res.body == "success") {
+          print("Insert Successfully.");
           Toast.show("Insert successfully", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           Navigator.of(context).pop();
         } else {
+          print("Insert Failed.");
           Toast.show("Insert failed", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         }
       }).catchError((err) {
         print(err);
-        // pr.dismiss();
       });
     }
   }

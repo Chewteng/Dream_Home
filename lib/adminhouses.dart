@@ -1,10 +1,7 @@
-//import 'dart:async';
 import 'dart:convert';
-//import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:dream_home/user.dart';
 import 'package:http/http.dart' as http;
-//import 'package:progress_dialog/progress_dialog.dart';
 import 'package:toast/toast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +21,7 @@ class AdminHouses extends StatefulWidget {
 }
 
 class _AdminHousesState extends State<AdminHouses> {
+  GlobalKey<RefreshIndicatorState> refreshKey;
   List housedata;
   int curnumber = 1;
   double screenHeight, screenWidth;
@@ -31,7 +29,6 @@ class _AdminHousesState extends State<AdminHouses> {
   String curtype = "House List";
   String housequantity = "0";
   int quantity = 1;
-  //bool _isFavorited = false;
   var _tapPosition;
   String titlecenter = "Loading houses...";
 
@@ -39,6 +36,7 @@ class _AdminHousesState extends State<AdminHouses> {
   void initState() {
     super.initState();
     _loadData();
+    refreshKey = GlobalKey<RefreshIndicatorState>();
   }
 
   @override
@@ -84,11 +82,16 @@ class _AdminHousesState extends State<AdminHouses> {
                 });
               },
             ),
-
-            //
           ],
         ),
-        body: Container(
+        body: 
+        RefreshIndicator(
+                key: refreshKey,
+                color: Color.fromRGBO(101, 255, 218, 50),
+                onRefresh: () async {
+                  await refreshList();
+                },
+                child:Container(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             //crossAxisAlignment: CrossAxisAlignment.center,
@@ -280,8 +283,6 @@ class _AdminHousesState extends State<AdminHouses> {
                           ),
                         ))),
               ),
-              //Visibility(
-              //visible: _visible,
               Card(
                 elevation: 5,
                 child: Container(
@@ -291,7 +292,6 @@ class _AdminHousesState extends State<AdminHouses> {
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
-                      //Flexible(
                       Container(
                         width: 230.0,
                         height: 35,
@@ -309,7 +309,6 @@ class _AdminHousesState extends State<AdminHouses> {
                                 border: OutlineInputBorder())),
                       ),
                       SizedBox(width: 40),
-                      //),
                       Flexible(
                           child: MaterialButton(
                         shape: RoundedRectangleBorder(
@@ -319,8 +318,6 @@ class _AdminHousesState extends State<AdminHouses> {
                         textColor: Colors.white,
                         onPressed: () =>
                             {_sortHousebyAddress(_prdController.text)},
-                        // elevation: 5,
-
                         child: Text("Search",
                             style: TextStyle(
                               color: Colors.black,
@@ -341,29 +338,18 @@ class _AdminHousesState extends State<AdminHouses> {
               SizedBox(height: 5),
               Flexible(
                   child: ListView(
-                      //crossAxisCount: 2,
-                      // childAspectRatio: (screenWidth / screenHeight) / 0.8,
                       children: List.generate(housedata.length, (index) {
                 return Card(
                     child: InkWell(
                   onTap: () => _showPopupMenu(index),
                   onTapDown: _storePosition,
-                  //maxHeight: 300,
-                  //  elevation: 10,
-                  //  child: Padding(
-                  // padding: EdgeInsets.all(5),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
-                    //  mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        //margin: EdgeInsets.all(12),
-                        // height: screenWidth / 4,
-                        // width: screenWidth / 4,
                         margin: EdgeInsets.only(left: 10, right: 10, bottom: 8),
                         height: 280,
                         decoration: BoxDecoration(
-                            // shape: BoxShape.circle,
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
                               BoxShadow(
@@ -371,8 +357,6 @@ class _AdminHousesState extends State<AdminHouses> {
                                   blurRadius: 3,
                                   spreadRadius: 2)
                             ]),
-
-                        //height: MediaQuery.of(context).size.height/3,
                         child: Stack(children: <Widget>[
                           Positioned(
                             left: 2,
@@ -429,8 +413,6 @@ class _AdminHousesState extends State<AdminHouses> {
                                     "Price From",
                                     style: TextStyle(
                                       color: Colors.white,
-                                      //fontSize: 17,
-                                      //fontWeight: FontWeight.w900
                                     ),
                                   ),
                                   Text(
@@ -443,28 +425,24 @@ class _AdminHousesState extends State<AdminHouses> {
                                         fontWeight: FontWeight.w900),
                                   ),
                                   SizedBox(height: 5),
-                                   Text(
-                                              "Available/Book Quantity: " +
-                                                  housedata[index]
-                                                      ['quantity'] +
-                                                  "/" +
-                                                  housedata[index]['book'],
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                   SizedBox(height: 5),         
+                                  Text(
+                                    "Available/Book Quantity: " +
+                                        housedata[index]['quantity'] +
+                                        "/" +
+                                        housedata[index]['book'],
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                  SizedBox(height: 5),
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
-                                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
                                     children: <Widget>[
                                       Icon(MdiIcons.bedDoubleOutline),
                                       Text(
                                         housedata[index]['room'],
                                         style: TextStyle(
                                           color: Colors.white,
-                                          //fontSize: 17,
-                                          // fontWeight: FontWeight.w900
                                         ),
                                       ),
                                       SizedBox(width: 15),
@@ -473,8 +451,6 @@ class _AdminHousesState extends State<AdminHouses> {
                                         housedata[index]['broom'],
                                         style: TextStyle(
                                           color: Colors.white,
-                                          //fontSize: 17,
-                                          // fontWeight: FontWeight.w900
                                         ),
                                       ),
                                       SizedBox(width: 15),
@@ -483,8 +459,6 @@ class _AdminHousesState extends State<AdminHouses> {
                                         housedata[index]['cpark'],
                                         style: TextStyle(
                                           color: Colors.white,
-                                          //fontSize: 17,
-                                          // fontWeight: FontWeight.w900
                                         ),
                                       ),
                                     ],
@@ -498,8 +472,6 @@ class _AdminHousesState extends State<AdminHouses> {
                                           housedata[index]['area'] + " sqft",
                                           style: TextStyle(
                                             color: Colors.white,
-                                            //fontSize: 17,
-                                            // fontWeight: FontWeight.w900
                                           ),
                                         ),
                                       ]),
@@ -514,7 +486,7 @@ class _AdminHousesState extends State<AdminHouses> {
               })))
             ],
           ),
-        ),
+        )),
         floatingActionButton: SpeedDial(
           animatedIcon: AnimatedIcons.menu_close,
           children: [
@@ -523,11 +495,6 @@ class _AdminHousesState extends State<AdminHouses> {
                 label: "New House",
                 labelBackgroundColor: Colors.white,
                 onTap: createNewProduct),
-            SpeedDialChild(
-                child: Icon(Icons.report),
-                label: "Houses Report",
-                labelBackgroundColor: Colors.white, //_changeLocality()
-                onTap: () => null),
           ],
         ),
       );
@@ -547,6 +514,11 @@ class _AdminHousesState extends State<AdminHouses> {
         cpark: housedata[index]['cpark'],
         area: housedata[index]['area'],
         type: housedata[index]['type'],
+        description: housedata[index]['description'],
+        latitude: housedata[index]['latitude'],
+        longitude: housedata[index]['longitude'],
+        url: housedata[index]['url'],
+        contact: housedata[index]['contact'],
         date: housedata[index]['date']);
     await Navigator.push(
         context,
@@ -572,24 +544,51 @@ class _AdminHousesState extends State<AdminHouses> {
           ),
       items: [
         //onLongPress: () => _showPopupMenu(), //onLongTapCard(index),
-
         PopupMenuItem(
           child: GestureDetector(
               onTap: () => {Navigator.of(context).pop(), _onHouseDetail(index)},
-              child: Text(
-                "Update House Details?",
-                style: TextStyle(
-                  color: Colors.black,
-                ),
+              child: Column(
+                // Replace with a Row for horizontal icon + text
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.update,
+                        color: Colors.black,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        "Update House Details?",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ],
               )),
         ),
         PopupMenuItem(
           child: GestureDetector(
               onTap: () =>
                   {Navigator.of(context).pop(), _deleteHouseDialog(index)},
-              child: Text(
-                "Delete House?",
-                style: TextStyle(color: Colors.black),
+              child: Column(
+                // Replace with a Row for horizontal icon + text
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        MdiIcons.deleteAlert,
+                        color: Colors.black,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        "Delete House?",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ],
               )),
         ),
       ],
@@ -649,15 +648,11 @@ class _AdminHousesState extends State<AdminHouses> {
   }
 
   void _deleteHouse(int index) {
-    //ProgressDialog pr = new ProgressDialog(context,
-   //     type: ProgressDialogType.Normal, isDismissible: false);
-   // pr.style(message: "Deleting product...");
-   // pr.show();
     http.post("https://yitengsze.com/cteng/php/delete_house.php", body: {
       "id": housedata[index]['id'],
     }).then((res) {
       print(res.body);
-     /// pr.hide();
+
       if (res.body == "success") {
         Toast.show("Deleted successfully", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -669,21 +664,18 @@ class _AdminHousesState extends State<AdminHouses> {
       }
     }).catchError((err) {
       print(err);
-     // pr.hide();
     });
   }
 
- void _loadData() async {
+  void _loadData() async {
     String urlLoadHouses = "https://yitengsze.com/cteng/php/load_houses.php";
     await http.post(urlLoadHouses, body: {}).then((res) {
       if (res.body == "nodata") {
         housedata = null;
         titlecenter = "No houses found";
-        // titletop = "Carian menjumpai sebarang produk";
 
         Toast.show("No houses available in this location", context,
             duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-        //pr.dismiss();
       } else {
         setState(() {
           var extractdata = json.decode(res.body);
@@ -697,11 +689,6 @@ class _AdminHousesState extends State<AdminHouses> {
   }
 
   void _sortHouse(String type) {
-    //try {
-    // ProgressDialog pr = new ProgressDialog(context,
-    //    type: ProgressDialogType.Normal, isDismissible: false);
-    // pr.style(message: "Searching...");
-    // pr.show();
     String urlLoadHouses = "https://yitengsze.com/cteng/php/load_houses.php";
     http.post(urlLoadHouses, body: {
       "type": type,
@@ -710,8 +697,6 @@ class _AdminHousesState extends State<AdminHouses> {
         if (res.body == "nodata") {
           housedata = null;
           titlecenter = "No houses found";
-          // titletop = "Carian menjumpai sebarang produk";
-
           Toast.show("No houses available in this location", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           //pr.dismiss();
@@ -720,27 +705,14 @@ class _AdminHousesState extends State<AdminHouses> {
           var extractdata = json.decode(res.body);
           housedata = extractdata["houses"];
           FocusScope.of(context).requestFocus(new FocusNode());
-          // pr.dismiss();
         }
       });
     }).catchError((err) {
       print(err);
-      // pr.dismiss();
     });
-    //pr.dismiss();
-    //} catch (e) {
-    //  Toast.show("Error", context,
-    //  //     duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    // }
   }
 
   void _sortHousebyAddress(String pradd) {
-    //try {
-    //  print(pradd);
-    //  ProgressDialog pr = new ProgressDialog(context,
-    //     type: ProgressDialogType.Normal, isDismissible: false);
-    // pr.style(message: "Searching...");
-    //  pr.show();
     String urlLoadHouses = "https://yitengsze.com/cteng/php/load_houses.php";
     http
         .post(urlLoadHouses, body: {
@@ -761,29 +733,20 @@ class _AdminHousesState extends State<AdminHouses> {
             housedata = extractdata["houses"];
             FocusScope.of(context).requestFocus(new FocusNode());
             curtype = pradd;
-            // pr.dismiss();
           });
         })
-        .catchError((err) {
-          // pr.dismiss();
-        });
-    // pr.dismiss();
-    // } on TimeoutException catch (_) {
-    //  Toast.show("Time out", context,
-    //      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    //} on SocketException catch (_) {
-    //  Toast.show("Time out", context,
-    //      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    //} catch (e) {
-    //  Toast.show("Error", context,
-    //      duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-    // }
+        .catchError((err) {});
   }
 
   Future<void> createNewProduct() async {
-   await Navigator.push(context,
+    await Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => NewHouse()));
-        _loadData();
+    _loadData();
   }
 
+   Future<Null> refreshList() async {
+    await Future.delayed(Duration(seconds: 2));
+    _loadData();
+    return null;
+  }
 }

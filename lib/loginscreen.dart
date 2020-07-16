@@ -7,7 +7,6 @@ import 'package:dream_home/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:dream_home/dialog_helper.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -25,6 +24,9 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _emailEditingController = new TextEditingController();
   TextEditingController _passEditingController = new TextEditingController();
   String urlLogin = "http://yitengsze.com/cteng/php/login_user.php";
+  final focus0 = FocusNode();
+  final focus1 = FocusNode();
+  String _email = "";
 
   @override
   void initState() {
@@ -65,7 +67,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget lowerHalf(BuildContext context) {
     return Container(
-
       height: 340,
       margin: EdgeInsets.only(top: screenHeight / 3),
       padding: EdgeInsets.only(left: 10, right: 10),
@@ -73,10 +74,9 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Card(
             shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0)),
+                borderRadius: BorderRadius.circular(10.0)),
             elevation: 10,
             child: Container(
-              
               padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
               child: Column(
                 children: <Widget>[
@@ -91,12 +91,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  TextField(
+                  TextFormField(
                       style: TextStyle(
                         color: Colors.white,
                       ),
                       controller: _emailEditingController,
                       keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (v) {
+                        FocusScope.of(context).requestFocus(focus0);
+                      },
                       decoration: InputDecoration(
                         labelText: 'Email',
                         icon: Icon(Icons.email),
@@ -108,12 +112,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
 
                   //holding and releasing the longTap to see the password
-                  TextField(
+                  TextFormField(
                     style: TextStyle(
                       color: Colors.white,
                     ),
                     obscureText: !_passwordVisible,
                     controller: _passEditingController,
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    focusNode: focus0,
+                    onFieldSubmitted: (v) {
+                      FocusScope.of(context).requestFocus(focus1);
+                    },
                     decoration: InputDecoration(
                       labelText: "Password",
                       labelStyle: TextStyle(
@@ -240,16 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
             content: new Text('Do you want to register new account?',
                 style: TextStyle(fontSize: 16.0, color: Colors.white)),
             actions: <Widget>[
-              Icon(
-                MdiIcons.menuRight,
-                size: 40,
-                color: Colors.white70,
-              ),
               MaterialButton(
-                //shape: RoundedRectangleBorder(
-                //    borderRadius: BorderRadius.circular(5.0)),
-                // minWidth: 60,
-                // height: 50,
                 onPressed: () {
                   Navigator.push(
                       context,
@@ -261,7 +262,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontSize: 16.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
-                // color: Color.fromRGBO(101, 255, 218, 50),
                 textColor: Colors.white,
               ),
               MaterialButton(
@@ -282,7 +282,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget pageTitle() {
     return Container(
-      // color: Color.fromRGBO(100, 200, 255, 200),
       margin: EdgeInsets.only(top: 60),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -290,7 +289,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Icon(MdiIcons.homeOutline, size: 40, color: Colors.black),
           Text(
-            " DREAM HOME",
+            "DREAM HOME",
             style: TextStyle(
                 fontSize: 32,
                 color: Colors.black,
@@ -304,18 +303,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void _userLogin() async {
     try {
-      ProgressDialog pr = new ProgressDialog(context,
-          type: ProgressDialogType.Normal, isDismissible: false);
-      pr.style(message: "Log in...");
-      pr.show();
+      Toast.show("Login in progress", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       String _email = _emailEditingController.text;
       String _password = _passEditingController.text;
       http.post(urlLogin, body: {
         "email": _email,
         "password": _password,
-      })
-          //.timeout(const Duration(seconds: 4))
-          .then((res) {
+      }).then((res) {
         print(res.body);
         var string = res.body;
         List userdata = string.split(",");
@@ -328,7 +323,7 @@ class _LoginScreenState extends State<LoginScreen> {
               credit: userdata[4],
               datereg: userdata[5],
               quantity: userdata[6]);
-          //pr.dismiss();
+
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -336,13 +331,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         user: _user,
                       )));
         } else {
-          //pr.dismiss();
-          Toast.show("Login failed", context,
+          Toast.show("Login failed.", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
         }
       }).catchError((err) {
         print(err);
-       // pr.dismiss();
       });
     } on Exception catch (_) {
       Toast.show("Error", context,
@@ -351,8 +344,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _forgotPassword() {
-    TextEditingController phoneController = TextEditingController();
-    // flutter defined function
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -366,19 +357,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   fontWeight: FontWeight.bold,
                   color: Colors.white)),
           content: new Container(
-            height: 100,
+            height: 120,
             child: Column(
               children: <Widget>[
-                Text("Enter your recovery email",
-                    style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
-                        
-                TextField(
+                Text("Enter your recovery email to reset password:",
+                    style: TextStyle(fontSize: 16.0, color: Colors.white)),
+                TextFormField(
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                  controller: _emailEditingController,
+                  validator: validateEmail,
+                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
                       labelText: 'Email',
-                      icon: Icon(Icons.email),
+                      icon: Icon(
+                        Icons.email,
+                        color: Colors.blue[400],
+                      ),
                       labelStyle: TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
@@ -388,31 +384,17 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           actions: <Widget>[
-            Icon(
-              MdiIcons.menuRight,
-              size: 40,
-              color: Colors.white70,
-            ),
-            // usually buttons at the bottom of the dialog
             new FlatButton(
               child: new Text("Yes",
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
               onPressed: () {
-                Navigator.of(context).pop();
-                print(
-                  phoneController.text,
-                );
+                Navigator.of(context).pop(false);
+                _onResetPassword();
               },
             ),
             new FlatButton(
               child: new Text("No",
-                  style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
+                  style: TextStyle(fontSize: 16.0, color: Colors.white)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -421,6 +403,36 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
     );
+  }
+
+  String validateEmail(String value) {
+    if (value.length == 0) {
+      return "Email is Required";
+    } else {
+      return null;
+    }
+  }
+
+  void _onResetPassword() {
+    String urlPass = "http://yitengsze.com/cteng/php/forgetpswd.php";
+    print("Done reset password. Check your email.");
+    _email = _emailEditingController.text;
+    if (_isEmailValid(_email)) {
+      Toast.show("Sending link to your email. Check your email.", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      http.post(urlPass, body: {
+        "email": _email,
+      }).then((res) {
+        Toast.show("Success in sending email. Pls check.", context,
+            duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      }).catchError((err) {
+        print(err);
+      });
+    }
+  }
+
+  bool _isEmailValid(String email) {
+    return RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
   }
 
   void _onRememberMeChanged(bool newValue) => setState(() {

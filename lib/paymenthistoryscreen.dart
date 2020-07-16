@@ -49,7 +49,7 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                   child: Container(
                       child: Center(
                           child: Text(
-                  titlecenter = "No Payment Made",
+                  titlecenter = "No House Booking Made",
                   style: TextStyle(
                       color: Colors.blue[400],
                       fontSize: 22,
@@ -65,37 +65,54 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                             child: InkWell(
                                 onTap: () => loadBookDetails(index),
                                 child: Card(
-                                   shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0))),
                                   elevation: 10,
                                   child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      SizedBox(width: 5,),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
                                       Text(
                                         (index + 1).toString() + ".",
                                         style: TextStyle(color: Colors.white),
                                       ),
-                                      SizedBox(width: 16),                                      
+                                      SizedBox(width: 16),
                                       Expanded(
                                           flex: 10,
                                           child: Column(
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              SizedBox(height: 2,),
-                                              Text(
-                                                "Booking ID: " +
-                                                _paymentdata[index]['bookid'],
-                                                style: TextStyle(
-                                                    color: Colors.white),
+                                              SizedBox(
+                                                height: 2,
+                                              ),
+                                              Row(
+                                                children: <Widget>[
+                                                  Text(
+                                                    "Booking ID: " +
+                                                        _paymentdata[index]
+                                                            ['bookid'],
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                  Spacer(),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child:
+                                                        Icon(Icons.expand_more),
+                                                  )
+                                                ],
                                               ),
                                               SizedBox(height: 5),
                                               Text(
                                                 "Receipt ID: " +
-                                                 _paymentdata[index]['billid'],
+                                                    _paymentdata[index]
+                                                        ['billid'],
                                                 style: TextStyle(
                                                     color: Colors.white),
                                               ),
@@ -122,17 +139,9 @@ class _PaymentHistoryScreenState extends State<PaymentHistoryScreen> {
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
-                                              )
+                                              ),
                                             ],
                                           )),
-                                      //Expanded(
-                                      ///  child: Text(
-                                      //    f.format(DateTime.parse(
-                                      //        _paymentdata[index]['date'])),
-                                      //   style: TextStyle(color: Colors.white),
-                                      // ),
-                                      //   flex: 3,
-                                      // ),
                                     ],
                                   ),
                                 )));

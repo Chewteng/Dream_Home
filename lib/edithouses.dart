@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:toast/toast.dart';
 import 'package:http/http.dart' as http;
-//import 'package:progress_dialog/progress_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'house.dart';
 import 'user.dart';
@@ -32,6 +31,11 @@ class _EditHousesState extends State<EditHouses> {
   TextEditingController carparkEditingController = new TextEditingController();
   TextEditingController areaEditingController = new TextEditingController();
   TextEditingController typeEditingController = new TextEditingController();
+  TextEditingController descEditingController = new TextEditingController();
+  TextEditingController latEditingController = new TextEditingController();
+  TextEditingController logEditingController = new TextEditingController();
+  TextEditingController urlEditingController = new TextEditingController();
+  TextEditingController contactEditingController = new TextEditingController();
   double screenHeight, screenWidth;
   final focus0 = FocusNode();
   final focus1 = FocusNode();
@@ -41,6 +45,11 @@ class _EditHousesState extends State<EditHouses> {
   final focus5 = FocusNode();
   final focus6 = FocusNode();
   final focus7 = FocusNode();
+  final focus8 = FocusNode();
+  final focus9 = FocusNode();
+  final focus10 = FocusNode();
+  final focus11 = FocusNode();
+  final focus12 = FocusNode();
   String selectedType;
   File _image;
   bool _takepicture = true;
@@ -67,8 +76,12 @@ class _EditHousesState extends State<EditHouses> {
     carparkEditingController.text = widget.house.cpark;
     areaEditingController.text = widget.house.area;
     typeEditingController.text = widget.house.type;
+    descEditingController.text = widget.house.description;
+    latEditingController.text = widget.house.latitude;
+    logEditingController.text = widget.house.longitude;
+    contactEditingController.text = widget.house.contact;
+    urlEditingController.text = widget.house.url;
     selectedType = widget.house.type;
-    // print(weigthEditingController.text);
   }
 
   @override
@@ -205,8 +218,6 @@ class _EditHousesState extends State<EditHouses> {
                                                         5.0),
                                                 borderSide: new BorderSide(),
                                               ),
-
-                                              //fillColor: Colors.green
                                             )),
                                       ),
                                     ),
@@ -541,6 +552,211 @@ class _EditHousesState extends State<EditHouses> {
                                       ),
                                     ),
                                   ]),
+                                  TableRow(children: [
+                                    TableCell(
+                                      child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 30,
+                                          child: Text("Description",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                              ))),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        margin: EdgeInsets.fromLTRB(5, 1, 5, 1),
+                                        height: 30,
+                                        child: TextFormField(
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                            controller: descEditingController,
+                                            keyboardType: TextInputType.text,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            focusNode: focus7,
+                                            onFieldSubmitted: (v) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(focus8);
+                                            },
+                                            decoration: new InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.all(5),
+                                              fillColor: Colors.white,
+                                              border: new OutlineInputBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        5.0),
+                                                borderSide: new BorderSide(),
+                                              ),
+
+                                              //fillColor: Colors.green
+                                            )),
+                                      ),
+                                    ),
+                                  ]),
+                                  TableRow(children: [
+                                    TableCell(
+                                      child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 30,
+                                          child: Text("Latitude",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white))),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        margin: EdgeInsets.fromLTRB(5, 1, 5, 1),
+                                        height: 30,
+                                        child: TextFormField(
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                            controller: latEditingController,
+                                            keyboardType: TextInputType.number,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            focusNode: focus8,
+                                            onFieldSubmitted: (v) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(focus9);
+                                            },
+                                            decoration: new InputDecoration(
+                                              fillColor: Colors.white,
+                                              border: new OutlineInputBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        5.0),
+                                                borderSide: new BorderSide(),
+                                              ),
+                                              //fillColor: Colors.green
+                                            )),
+                                      ),
+                                    ),
+                                  ]),
+                                  TableRow(children: [
+                                    TableCell(
+                                      child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 30,
+                                          child: Text("Longitude",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white))),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        margin: EdgeInsets.fromLTRB(5, 1, 5, 1),
+                                        height: 30,
+                                        child: TextFormField(
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                            controller: logEditingController,
+                                            keyboardType: TextInputType.number,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            focusNode: focus9,
+                                            onFieldSubmitted: (v) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(focus10);
+                                            },
+                                            decoration: new InputDecoration(
+                                              fillColor: Colors.white,
+                                              border: new OutlineInputBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        5.0),
+                                                borderSide: new BorderSide(),
+                                              ),
+                                              //fillColor: Colors.green
+                                            )),
+                                      ),
+                                    ),
+                                  ]),
+                                  TableRow(children: [
+                                    TableCell(
+                                      child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 30,
+                                          child: Text("House URL",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white))),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        margin: EdgeInsets.fromLTRB(5, 1, 5, 1),
+                                        height: 30,
+                                        child: TextFormField(
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                            controller: urlEditingController,
+                                            keyboardType: TextInputType.number,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            focusNode: focus10,
+                                            onFieldSubmitted: (v) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(focus11);
+                                            },
+                                            decoration: new InputDecoration(
+                                              fillColor: Colors.white,
+                                              border: new OutlineInputBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        5.0),
+                                                borderSide: new BorderSide(),
+                                              ),
+                                              //fillColor: Colors.green
+                                            )),
+                                      ),
+                                    ),
+                                  ]),
+                                  TableRow(children: [
+                                    TableCell(
+                                      child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          height: 30,
+                                          child: Text("Contact No. ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white))),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        margin: EdgeInsets.fromLTRB(5, 1, 5, 1),
+                                        height: 30,
+                                        child: TextFormField(
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                            controller:
+                                                contactEditingController,
+                                            keyboardType: TextInputType.number,
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            focusNode: focus11,
+                                            onFieldSubmitted: (v) {
+                                              FocusScope.of(context)
+                                                  .requestFocus(focus12);
+                                            },
+                                            decoration: new InputDecoration(
+                                              fillColor: Colors.white,
+                                              border: new OutlineInputBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        5.0),
+                                                borderSide: new BorderSide(),
+                                              ),
+                                              //fillColor: Colors.green
+                                            )),
+                                      ),
+                                    ),
+                                  ]),
                                 ]),
                             SizedBox(height: 3),
                             MaterialButton(
@@ -650,14 +866,31 @@ class _EditHousesState extends State<EditHouses> {
           duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
-    //double price = double.parse(priceEditingController.text);
-    //double weigth = double.parse(weigthEditingController.text);
-
-    //ProgressDialog pr = new ProgressDialog(context,
-    //    type: ProgressDialogType.Normal, isDismissible: false);
-    // pr.style(message: "Updating product...");
-    //pr.show();
-
+    if (descEditingController.text.length < 1) {
+      Toast.show("Please insert house brief decription", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+    if (latEditingController.text.length < 1) {
+      Toast.show("Please insert house latitude", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+    if (logEditingController.text.length < 1) {
+      Toast.show("Please insert house longitude", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+    if (urlEditingController.text.length < 1) {
+      Toast.show("Please insert house url", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
+    if (contactEditingController.text.length < 1) {
+      Toast.show("Please insert contact number", context,
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+      return;
+    }
     String base64Image;
 
     if (_image != null) {
@@ -673,11 +906,17 @@ class _EditHousesState extends State<EditHouses> {
         "cpark": carparkEditingController.text,
         "type": typeEditingController.text,
         "area": areaEditingController.text,
+        "description": descEditingController.text,
+        "latitude": latEditingController.text,
+        "longitude": logEditingController.text,
+        "url": urlEditingController.text,
+        "contact": contactEditingController.text,
         "encoded_string": base64Image,
       }).then((res) {
         print(res.body);
-        // pr.hide();
+
         if (res.body == "success") {
+          print("Updated details successfully");
           Toast.show("Updated successfully", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
           Navigator.of(context).pop();
@@ -687,7 +926,6 @@ class _EditHousesState extends State<EditHouses> {
         }
       }).catchError((err) {
         print(err);
-        //pr.hide();
       });
     } else {
       http.post(server + "/php/update_house.php", body: {
@@ -701,9 +939,14 @@ class _EditHousesState extends State<EditHouses> {
         "cpark": carparkEditingController.text,
         "type": typeEditingController.text,
         "area": areaEditingController.text,
+        "description": descEditingController.text,
+        "latitude": latEditingController.text,
+        "longitude": logEditingController.text,
+        "url": urlEditingController.text,
+        "contact": contactEditingController.text,
       }).then((res) {
         print(res.body);
-        // pr.hide();
+
         if (res.body == "success") {
           Toast.show("Updated successfully", context,
               duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
@@ -714,7 +957,6 @@ class _EditHousesState extends State<EditHouses> {
         }
       }).catchError((err) {
         print(err);
-        //  pr.hide();
       });
     }
   }

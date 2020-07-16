@@ -50,37 +50,31 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           ),
           Card(
             child: Column(children: <Widget>[
-               SizedBox(height: 3,),
-              Row(children: <Widget>[
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text("Booking ID: ",
-                    style: TextStyle(
-                        color: Colors.white,
-                        //fontWeight: FontWeight.bold,
-                        fontSize: 16),
-                  )),
-                  //Spacer(),
+              SizedBox(
+                height: 3,
+              ),
+              Row(
+                children: <Widget>[
                   Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    widget.book.bookid,
-                    style: TextStyle(
-                        color: Colors.white,
-                        //fontWeight: FontWeight.bold,
-                        fontSize: 16),
-                  )),
-              ],),
-              
-                   Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        "Booking ID: ",
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      )),
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        widget.book.bookid,
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                      )),
+                ],
+              ),
+              Align(
                   alignment: Alignment.topLeft,
-                  child: Text("Paid on " + widget.book.date,
-                    style: TextStyle(
-                        color: Colors.white,
-                        //fontWeight: FontWeight.bold,
-                        fontSize: 16),
+                  child: Text(
+                    "Paid on " + widget.book.date,
+                    style: TextStyle(color: Colors.white, fontSize: 16),
                   )),
-                  
             ]),
           ),
           _bookdetails == null
@@ -102,7 +96,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                       itemBuilder: (context, index) {
                         if (index == _bookdetails.length) {
                           return Container(
-                              //height: screenHeight / 3,
                               child: Card(
                             elevation: 5,
                             child: Column(
@@ -112,7 +105,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-                                  //color: Colors.red,
                                   child: Table(
                                       defaultColumnWidth: FlexColumnWidth(1.0),
                                       columnWidths: {
@@ -286,7 +278,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                   )),
                                   Container(
                                       width: screenWidth / 1.8,
-                                      //color: Colors.blue,
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -367,7 +358,6 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
           var extractdata = json.decode(res.body);
           _bookdetails = extractdata["bookhistory"];
           for (int i = 0; i < _bookdetails.length; i++) {
-            //_totalprice = double.parse(favData[i]['yourprice']) + _totalprice;
             unitSelected =
                 int.parse(_bookdetails[i]['hquantity']) + unitSelected;
             downpayment = unitSelected * 200;
