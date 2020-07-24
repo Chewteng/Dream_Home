@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'book.dart';
 import 'package:http/http.dart' as http;
-import 'package:cached_network_image/cached_network_image.dart';
 
 class BookingDetailsScreen extends StatefulWidget {
   final Book book;
@@ -251,20 +250,18 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                                   Column(
                                     children: <Widget>[
                                       Container(
-                                          height: screenWidth / 3,
-                                          width: screenWidth / 3,
-                                          decoration: BoxDecoration(
-                                            color: Colors.blue[400],
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              child: CachedNetworkImage(
-                                                  fit: BoxFit.cover,
-                                                  imageUrl:
-                                                      "http://yitengsze.com/cteng/homeimage/${_bookdetails[index]['id']}.jpg"))),
+                                        height: screenWidth / 3,
+                                        width: screenWidth / 3,
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue[400],
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "http://yitengsze.com/cteng/homeimage/${_bookdetails[index]['id']}.jpg?"),
+                                              fit: BoxFit.cover),
+                                        ),
+                                      ),
                                       Text(
                                         _bookdetails[index]['id'],
                                         style: TextStyle(color: Colors.white),

@@ -569,9 +569,9 @@ class _NewHouseState extends State<NewHouse> {
                                               height: 30,
                                               child: Text("Description",
                                                   style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white))),
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ))),
                                         ),
                                         TableCell(
                                           child: Container(
@@ -585,7 +585,7 @@ class _NewHouseState extends State<NewHouse> {
                                                 controller:
                                                     descEditingController,
                                                 keyboardType:
-                                                    TextInputType.multiline,
+                                                    TextInputType.text,
                                                 textInputAction:
                                                     TextInputAction.next,
                                                 focusNode: focus7,
@@ -594,6 +594,8 @@ class _NewHouseState extends State<NewHouse> {
                                                       .requestFocus(focus8);
                                                 },
                                                 decoration: new InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets.all(5),
                                                   fillColor: Colors.white,
                                                   border:
                                                       new OutlineInputBorder(
@@ -603,6 +605,7 @@ class _NewHouseState extends State<NewHouse> {
                                                     borderSide:
                                                         new BorderSide(),
                                                   ),
+
                                                   //fillColor: Colors.green
                                                 )),
                                           ),

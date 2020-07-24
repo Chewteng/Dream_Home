@@ -7,7 +7,6 @@ import 'package:dream_home/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 import 'package:intl/intl.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:random_string/random_string.dart';
 
 class FavScreen extends StatefulWidget {
@@ -790,20 +789,18 @@ class _FavScreenState extends State<FavScreen> {
                                   Column(
                                     children: <Widget>[
                                       Container(
-                                          height: screenWidth / 3,
-                                          width: screenWidth / 3,
-                                          decoration: BoxDecoration(
-                                            color: Colors.blue[400],
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              child: CachedNetworkImage(
-                                                  fit: BoxFit.cover,
-                                                  imageUrl:
-                                                      "http://yitengsze.com/cteng/homeimage/${favData[index]['id']}.jpg"))),
+                                        height: screenWidth / 3,
+                                        width: screenWidth / 3,
+                                        decoration: BoxDecoration(
+                                          color: Colors.blue[400],
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  "http://yitengsze.com/cteng/homeimage/${favData[index]['id']}.jpg?"),
+                                              fit: BoxFit.cover),
+                                        ),
+                                      ),
                                       Text(
                                           "RM " +
                                               (formatter.format(double.parse(
@@ -1039,7 +1036,7 @@ class _FavScreenState extends State<FavScreen> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20.0))),
         title: new Text(
-          'Remove from favourite list?',
+          'Remove ' + favData[index]['name'] + ' from favourite list?',
           style: TextStyle(
             //fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -1282,7 +1279,7 @@ class _FavScreenState extends State<FavScreen> {
       "newcr": updateamount
     }).then((res) {
       print(res.body);
-      if(res.body == "Success pay with DreamHome wallet"){
+      if (res.body == "Success pay with DreamHome wallet") {
         print("Success.");
         setState(() {
           widget.user.credit = updateamount;

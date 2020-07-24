@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:toast/toast.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'edithouses.dart';
 import 'house.dart';
@@ -84,409 +83,414 @@ class _AdminHousesState extends State<AdminHouses> {
             ),
           ],
         ),
-        body: 
-        RefreshIndicator(
-                key: refreshKey,
-                color: Color.fromRGBO(101, 255, 218, 50),
-                onRefresh: () async {
-                  await refreshList();
-                },
-                child:Container(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            //crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Visibility(
-                visible: _visible,
-                child: Card(
-                    elevation: 10,
-                    child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: <Widget>[
-                              Column(
+        body: RefreshIndicator(
+            key: refreshKey,
+            color: Color.fromRGBO(101, 255, 218, 50),
+            onRefresh: () async {
+              await refreshList();
+            },
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                //crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Visibility(
+                    visible: _visible,
+                    child: Card(
+                        elevation: 10,
+                        child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
                                 children: <Widget>[
-                                  FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                      onPressed: () => _sortHouse("Recent"),
-                                      color: Colors.blue[400],
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        // Replace with a Row for horizontal icon + text
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.update,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Recent",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                      onPressed: () =>
-                                          _sortHouse("Condominium"),
-                                      color: Colors.blue[400],
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        // Replace with a Row for horizontal icon + text
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.homeCity,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Condominium",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                      onPressed: () =>
-                                          _sortHouse("Terraced House"),
-                                      color: Colors.blue[400],
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        // Replace with a Row for horizontal icon + text
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.homeGroup,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Terraced House",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                      onPressed: () => _sortHouse("Bungalow"),
-                                      color: Colors.blue[400],
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        // Replace with a Row for horizontal icon + text
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.homeModern,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Bungalow",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                      onPressed: () => _sortHouse("Flat"),
-                                      color: Colors.blue[400],
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        // Replace with a Row for horizontal icon + text
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.home,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "Flat",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Column(
-                                children: <Widget>[
-                                  FlatButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(5.0))),
-                                      onPressed: () => _sortHouse("Shoplot"),
-                                      color: Colors.blue[400],
-                                      padding: EdgeInsets.all(10.0),
-                                      child: Column(
-                                        // Replace with a Row for horizontal icon + text
-                                        children: <Widget>[
-                                          Icon(
-                                            MdiIcons.shoppingSearch,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                            "ShopLot",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ))),
-              ),
-              Card(
-                elevation: 5,
-                child: Container(
-                  height: screenHeight / 12,
-                  margin: EdgeInsets.fromLTRB(20, 2, 20, 2),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Container(
-                        width: 230.0,
-                        height: 35,
-                        child: TextField(
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                            autofocus: false,
-                            controller: _prdController,
-                            decoration: InputDecoration(
-                                labelStyle: TextStyle(
-                                    fontSize: 15, fontStyle: FontStyle.italic),
-                                icon: Icon(Icons.search),
-                                labelText: "Search by State Name",
-                                border: OutlineInputBorder())),
-                      ),
-                      SizedBox(width: 40),
-                      Flexible(
-                          child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10.0))),
-                        color: Colors.blue[400],
-                        textColor: Colors.white,
-                        onPressed: () =>
-                            {_sortHousebyAddress(_prdController.text)},
-                        child: Text("Search",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            )),
-                      ))
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Text(curtype,
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              SizedBox(height: 5),
-              Flexible(
-                  child: ListView(
-                      children: List.generate(housedata.length, (index) {
-                return Card(
-                    child: InkWell(
-                  onTap: () => _showPopupMenu(index),
-                  onTapDown: _storePosition,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(left: 10, right: 10, bottom: 8),
-                        height: 280,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 3,
-                                  spreadRadius: 2)
-                            ]),
-                        child: Stack(children: <Widget>[
-                          Positioned(
-                            left: 2,
-                            top: 8,
-                            bottom: 5,
-                            child: Container(
-                                width: 160,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue[400],
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    child: CachedNetworkImage(
-                                      fit: BoxFit.cover,
-                                      imageUrl:
-                                          "http://yitengsze.com/cteng/homeimage/${housedata[index]['id']}.jpg",
-                                      placeholder: (context, url) =>
-                                          new CircularProgressIndicator(),
-                                      errorWidget: (context, url, error) =>
-                                          new Icon(Icons.error),
-                                    ))),
-                          ),
-                          Positioned(
-                              top: 15,
-                              left: 168,
-                              bottom: 10,
-                              right: 2,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text("SALE @ " + housedata[index]['type'],
-                                      maxLines: 2,
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700)),
-                                  SizedBox(height: 8),
-                                  Text(housedata[index]['name'],
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold)),
-                                  Text(housedata[index]['address'],
-                                      maxLines: 4,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w400)),
-                                  SizedBox(height: 6),
-                                  Text(
-                                    "Price From",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  Text(
-                                    "RM " +
-                                        (formatter.format(int.parse(
-                                            housedata[index]['price']))),
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w900),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Text(
-                                    "Available/Book Quantity: " +
-                                        housedata[index]['quantity'] +
-                                        "/" +
-                                        housedata[index]['book'],
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.min,
+                                  Column(
                                     children: <Widget>[
-                                      Icon(MdiIcons.bedDoubleOutline),
-                                      Text(
-                                        housedata[index]['room'],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      SizedBox(width: 15),
-                                      Icon(MdiIcons.shower),
-                                      Text(
-                                        housedata[index]['broom'],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      SizedBox(width: 15),
-                                      Icon(MdiIcons.car),
-                                      Text(
-                                        housedata[index]['cpark'],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
+                                      FlatButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0))),
+                                          onPressed: () => _sortHouse("Recent"),
+                                          color: Colors.blue[400],
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            // Replace with a Row for horizontal icon + text
+                                            children: <Widget>[
+                                              Icon(
+                                                MdiIcons.update,
+                                                color: Colors.black,
+                                              ),
+                                              Text(
+                                                "Recent",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )),
                                     ],
                                   ),
-                                  Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Icon(MdiIcons.cropLandscape),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          housedata[index]['area'] + " sqft",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ]),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      FlatButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0))),
+                                          onPressed: () =>
+                                              _sortHouse("Condominium"),
+                                          color: Colors.blue[400],
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            // Replace with a Row for horizontal icon + text
+                                            children: <Widget>[
+                                              Icon(
+                                                MdiIcons.homeCity,
+                                                color: Colors.black,
+                                              ),
+                                              Text(
+                                                "Condominium",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      FlatButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0))),
+                                          onPressed: () =>
+                                              _sortHouse("Terraced House"),
+                                          color: Colors.blue[400],
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            // Replace with a Row for horizontal icon + text
+                                            children: <Widget>[
+                                              Icon(
+                                                MdiIcons.homeGroup,
+                                                color: Colors.black,
+                                              ),
+                                              Text(
+                                                "Terraced House",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      FlatButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0))),
+                                          onPressed: () =>
+                                              _sortHouse("Bungalow"),
+                                          color: Colors.blue[400],
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            // Replace with a Row for horizontal icon + text
+                                            children: <Widget>[
+                                              Icon(
+                                                MdiIcons.homeModern,
+                                                color: Colors.black,
+                                              ),
+                                              Text(
+                                                "Bungalow",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      FlatButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0))),
+                                          onPressed: () => _sortHouse("Flat"),
+                                          color: Colors.blue[400],
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            // Replace with a Row for horizontal icon + text
+                                            children: <Widget>[
+                                              Icon(
+                                                MdiIcons.home,
+                                                color: Colors.black,
+                                              ),
+                                              Text(
+                                                "Flat",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      FlatButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5.0))),
+                                          onPressed: () =>
+                                              _sortHouse("Shoplot"),
+                                          color: Colors.blue[400],
+                                          padding: EdgeInsets.all(10.0),
+                                          child: Column(
+                                            // Replace with a Row for horizontal icon + text
+                                            children: <Widget>[
+                                              Icon(
+                                                MdiIcons.shoppingSearch,
+                                                color: Colors.black,
+                                              ),
+                                              Text(
+                                                "ShopLot",
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
                                 ],
-                              ))
-                        ]),
-                      ),
-                    ],
+                              ),
+                            ))),
                   ),
-                  // )
-                ));
-              })))
-            ],
-          ),
-        )),
+                  Card(
+                    elevation: 5,
+                    child: Container(
+                      height: screenHeight / 12,
+                      margin: EdgeInsets.fromLTRB(20, 2, 20, 2),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Container(
+                            width: 230.0,
+                            height: 35,
+                            child: TextField(
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                                autofocus: false,
+                                controller: _prdController,
+                                decoration: InputDecoration(
+                                    labelStyle: TextStyle(
+                                        fontSize: 15,
+                                        fontStyle: FontStyle.italic),
+                                    icon: Icon(Icons.search),
+                                    labelText: "Search by State Name",
+                                    border: OutlineInputBorder())),
+                          ),
+                          SizedBox(width: 40),
+                          Flexible(
+                              child: MaterialButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0))),
+                            color: Colors.blue[400],
+                            textColor: Colors.white,
+                            onPressed: () =>
+                                {_sortHousebyAddress(_prdController.text)},
+                            child: Text("Search",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                )),
+                          ))
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(curtype,
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white)),
+                  SizedBox(height: 5),
+                  Flexible(
+                      child: ListView(
+                          children: List.generate(housedata.length, (index) {
+                    return Card(
+                        child: InkWell(
+                      onTap: () => _showPopupMenu(index),
+                      onTapDown: _storePosition,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Container(
+                            margin:
+                                EdgeInsets.only(left: 10, right: 10, bottom: 8),
+                            height: 280,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 3,
+                                      spreadRadius: 2)
+                                ]),
+                            child: Stack(children: <Widget>[
+                              Positioned(
+                                left: 2,
+                                top: 8,
+                                bottom: 5,
+                                child: Container(
+                                  width: 160,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue[400],
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            "http://yitengsze.com/cteng/homeimage/${housedata[index]['id']}.jpg?"),
+                                        fit: BoxFit.cover),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                  top: 15,
+                                  left: 168,
+                                  bottom: 10,
+                                  right: 2,
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text("SALE @ " + housedata[index]['type'],
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w700)),
+                                      SizedBox(height: 8),
+                                      Text(housedata[index]['name'],
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
+                                      Text(housedata[index]['address'],
+                                          maxLines: 4,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w400)),
+                                      SizedBox(height: 6),
+                                      Text(
+                                        "Price From",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Text(
+                                        "RM " +
+                                            (formatter.format(int.parse(
+                                                housedata[index]['price']))),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w900),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Text(
+                                        "Available/Book Quantity: " +
+                                            housedata[index]['quantity'] +
+                                            "/" +
+                                            housedata[index]['book'],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Icon(MdiIcons.bedDoubleOutline),
+                                          Text(
+                                            housedata[index]['room'],
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          SizedBox(width: 15),
+                                          Icon(MdiIcons.shower),
+                                          Text(
+                                            housedata[index]['broom'],
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          SizedBox(width: 15),
+                                          Icon(MdiIcons.car),
+                                          Text(
+                                            housedata[index]['cpark'],
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Icon(MdiIcons.cropLandscape),
+                                            SizedBox(width: 5),
+                                            Text(
+                                              housedata[index]['area'] +
+                                                  " sqft",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ]),
+                                    ],
+                                  ))
+                            ]),
+                          ),
+                        ],
+                      ),
+                      // )
+                    ));
+                  })))
+                ],
+              ),
+            )),
         floatingActionButton: SpeedDial(
           animatedIcon: AnimatedIcons.menu_close,
           children: [
@@ -744,7 +748,7 @@ class _AdminHousesState extends State<AdminHouses> {
     _loadData();
   }
 
-   Future<Null> refreshList() async {
+  Future<Null> refreshList() async {
     await Future.delayed(Duration(seconds: 2));
     _loadData();
     return null;
